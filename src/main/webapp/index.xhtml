@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Ghostnet - Shea Sepherd</title>
+</h:head>
+
+<h:body>
+    <h:form>
+        <p:dataTable var="ghostnet" value="#{ghostnetList.ghostnets}">
+            <f:facet name="header"><h2>Gemeldete Geisternetze</h2></f:facet>
+            <p:column headerText="Standort">
+                <p:outputLabel value="#{ghostnet.latitude}, #{ghostnet.longitude}"/>
+            </p:column>
+            <p:column headerText="Geschätzte Größe">
+                <p:outputLabel value="#{ghostnet.estimatedSize}"/>
+            </p:column>
+            <p:column headerText="Status">
+                <p:outputLabel value="#{ghostnet.status}"/>
+            </p:column>
+        </p:dataTable>
+    </h:form>
+</h:body>
+</html>
