@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Melden - Shea Sepherd</title>
+    <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
+</h:head>
+
+<h:body>
+    <h:form>
+        <p:card>
+        <f:facet name="title">Neues Geisternetz melden</f:facet>
+        <h:panelGrid columns="2">
+            <p:outputLabel value="Ihr Name"/>
+            <p:column>
+                <p:inputText id="username" placeholder="Maxi Muster" value="#{ghostnetController.newGhostnet.reporterName}" required="true"/>
+                <p:tooltip for="username" value="Ihre Telefonnummer bleibt privat, zum Melden wird nur Ihr Name benötigt." position="bottom"/>
+            </p:column>
+
+            <p:outputLabel value="GPS Koordinaten"/>
+            <p:column>
+                <!-- TODO: Punkt statt Komma bei Koordinaten -->
+                <p:inputNumber id="lat" value="#{ghostnetController.newGhostnet.latitude}" required="true" placeholder="Längengrad" minValue="-90.0" maxValue="90.0" decimalPlaces="7" size="10"/>
+                <p:tooltip for="lat" value="Längengerade des gefundenen Netzes" position="bottom"/>
+                <p:inputNumber id="lng" value="#{ghostnetController.newGhostnet.longitude}" required="true" placeholder="Breitengrad" minValue="-180.0" maxValue="180.0" decimalPlaces="7" size="10"/>
+                <p:tooltip for="lng" value="Breitengrade des gefundenen Netzes" position="bottom"/>
+            </p:column>
+
+            <p:outputLabel value="Geschätzte Größe (qm)"/>
+            <p:column>
+                <p:spinner id="estimatedSize" value="#{ghostnetController.newGhostnet.estimatedSize}" required="true" stepFactor="0.25" min="0" size="5"/>
+                <p:tooltip for="estimatedSize" value="Geschätzte Größe des Netzes in Quadratmetern" position="bottom"/>
+            </p:column>
+        </h:panelGrid>
+
+            <p:messages id="messages">
+                <p:autoUpdate/>
+            </p:messages>
+            <p:commandButton value="Abbrechen" icon="pi pi-times" action="#{ghostnetController.cancel}" style="margin-top: .5rem; margin-right: .5rem" styleClass="ui-button-danger" immediate="true"/>
+            <p:commandButton value="Hinzufügen" icon="pi pi-check" action="#{ghostnetController.saveNewGhostnet}" style="margin-top: .5rem"/>
+        </p:card>
+    </h:form>
+</h:body>
+</html>

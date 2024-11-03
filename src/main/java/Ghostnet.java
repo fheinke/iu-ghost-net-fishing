@@ -1,20 +1,28 @@
+import jakarta.persistence.*;
+
+@Entity
 public class Ghostnet {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private double latitude;
     private double longitude;
     private float estimatedSize;
     private String status;
-
-    private ReportingPerson reportingPerson;
-    private RetrievingPerson retrievingPerson;
+    private String reporterName;
 
     // Constructor
-    public Ghostnet(double latitude, double longitude, float estimatedSize, String status) {
+    public Ghostnet() {
+        super();
+    }
+
+    public Ghostnet(double latitude, double longitude, float estimatedSize, String status, String reporterName) {
         super();
         this.latitude = latitude;
         this.longitude = longitude;
         this.estimatedSize = estimatedSize;
         this.status = status;
+        this.reporterName = reporterName;
     }
 
     // Getter / Setter
@@ -53,17 +61,10 @@ public class Ghostnet {
         this.status = status;
     }
 
-    public ReportingPerson getReportingPerson() {
-        return reportingPerson;
+    public String getReporterName() {
+        return reporterName;
     }
-    public void setReportingPerson(ReportingPerson reportingPerson) {
-        this.reportingPerson = reportingPerson;
-    }
-
-    public RetrievingPerson getRetrievingPerson() {
-        return retrievingPerson;
-    }
-    public void setRetrievingPerson(RetrievingPerson retrievingPerson) {
-        this.retrievingPerson = retrievingPerson;
+    public void setReporterName(String reporterName) {
+        this.reporterName = reporterName;
     }
 }
