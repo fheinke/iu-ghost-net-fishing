@@ -12,7 +12,8 @@
     <h:form>
         <p:card>
             <p:commandButton value="Netz melden" icon="pi pi-file-plus" action="#{overview.addGhostnet}" style="margin-right: .5rem"/>
-            <p:commandButton value="Anmelden" icon="pi pi-user" action="#{overview.login}"/>
+            <p:commandButton value="Anmelden" icon="pi pi-user" action="#{overview.login}" rendered="#{!currentUser.loggedIn}"/>
+            <p:commandButton value="Abmelden" icon="pi pi-user" action="#{loginController.logout}" rendered="#{currentUser.loggedIn}"/>
         </p:card>
     </h:form>
 
@@ -41,7 +42,7 @@
                 <p:tooltip for="status" value="Status des Netzes" position="bottom"/>
             </p:column>
 
-            <p:column headerText="Gemeldet von" sortBy="#{ghostnet.reporterName}" rendered="false">
+            <p:column headerText="Gemeldet von" sortBy="#{ghostnet.reporterName}" rendered="#{currentUser.loggedIn}">
                 <p:outputLabel for="reporter" value="Status" style="padding: 8px;"/>
                 <h:outputText id="reporter" value="#{ghostnet.reporterName}"/>
                 <p:tooltip for="reporter" value="Netz wurde gemeldet von" position="bottom"/>

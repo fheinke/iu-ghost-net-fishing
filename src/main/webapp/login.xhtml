@@ -14,19 +14,22 @@
             <f:facet name="title">Login oder Registrieren</f:facet>
 
             <p:panelGrid columns="2">
-                <p:outputLabel value="Name" for="name"/>
-                <p:inputText id="name" size="25" value="" placeholder="Benutzername" required="true">
-                    <!--<f:event type="postValidate" listener=""/>-->
+                <p:outputLabel value="Vorname" for="name"/>
+                <p:inputText id="name" size="25" value="#{loginController.user.name}" placeholder="Vorname" required="true">
+                    <f:event type="postValidate" listener="#{loginController.postValidateName}"/>
+                </p:inputText>
+                <p:outputLabel value="Nachname" for="surname"/>
+                <p:inputText id="surname" size="25" value="#{loginController.user.surname}" placeholder="Nachname" required="true">
+                    <f:event type="postValidate" listener="#{loginController.postValidateSurname}"/>
                 </p:inputText>
                 <p:outputLabel value="Telefonnummer" for="phoneNumber"/>
-                <p:inputText id="phoneNumber" size="25" value="" placeholder="+49 123 4567890" validatorMessage="Die Telefonnummer hat kein gültiges Format">
+                <p:inputText id="phoneNumber" size="25" value="#{loginController.user.phoneNumber}" placeholder="+49 123 4567890" validator="#{loginController.validateLogin}" required="true">
                     <f:validateRegex pattern="^([+]?[\d]+)?$"/>
                 </p:inputText>
             </p:panelGrid>
 
             <f:facet name="footer">
-                <p:commandButton value="Login" />
-                <p:commandButton value="Registrieren" />
+                <p:commandButton value="Login" action="#{loginController.login}" />
                 <p:messages id="messages">
                     <p:autoUpdate/>
                 </p:messages>

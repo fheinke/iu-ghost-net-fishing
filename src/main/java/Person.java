@@ -5,7 +5,6 @@ import java.util.List;
 @Entity
 public class Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
     private String surname;
@@ -60,5 +59,15 @@ public class Person {
     }
     public void setRetrievingGhostnets(List<Ghostnet> retrievingGhostnets) {
         this.retrievingGhostnets = retrievingGhostnets;
+    }
+
+    // Custom Methods
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Person) {
+            Person person = (Person) obj;
+            return person.getName().equals(this.name) && person.getSurname().equals(this.surname) && person.getPhoneNumber().equals(this.phoneNumber);
+        }
+        return false;
     }
 }

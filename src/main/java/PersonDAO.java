@@ -16,13 +16,4 @@ public class PersonDAO {
         entityManager.close();
         return allPeople;
     }
-
-    public void save(Person person) {
-        EntityManager entityManager = emf.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-        entityManager.persist(person);
-        transaction.commit();
-        entityManager.close();
-    }
 }
