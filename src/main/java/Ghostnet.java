@@ -11,18 +11,13 @@ public class Ghostnet {
     private String status;
     private String reporterName;
 
+    @ManyToOne
+    @JoinColumn(name = "retrieving_person_id")
+    private Person retrievingPerson;
+
     // Constructor
     public Ghostnet() {
         super();
-    }
-
-    public Ghostnet(double latitude, double longitude, float estimatedSize, String status, String reporterName) {
-        super();
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.estimatedSize = estimatedSize;
-        this.status = status;
-        this.reporterName = reporterName;
     }
 
     // Getter / Setter
@@ -66,5 +61,12 @@ public class Ghostnet {
     }
     public void setReporterName(String reporterName) {
         this.reporterName = reporterName;
+    }
+
+    public Person getRetrievingPerson() {
+        return retrievingPerson;
+    }
+    public void setRetrievingPerson(Person retrievingPerson) {
+        this.retrievingPerson = retrievingPerson;
     }
 }

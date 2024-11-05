@@ -10,7 +10,7 @@ public class Person {
     private String surname;
     private String phoneNumber;
 
-    @OneToMany
+    @OneToMany(mappedBy = "retrievingPerson")
     private List<Ghostnet> retrievingGhostnets;
 
     // Constructor
@@ -28,9 +28,6 @@ public class Person {
     // Getter / Setter
     public int getId() {
         return id;
-    }
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -69,5 +66,9 @@ public class Person {
             return person.getName().equals(this.name) && person.getSurname().equals(this.surname) && person.getPhoneNumber().equals(this.phoneNumber);
         }
         return false;
+    }
+
+    public String getFullName() {
+        return surname + ", " + name;
     }
 }

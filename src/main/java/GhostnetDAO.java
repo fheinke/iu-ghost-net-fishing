@@ -25,4 +25,13 @@ public class GhostnetDAO {
         transaction.commit();
         entityManager.close();
     }
+
+    public void update(Ghostnet ghostnet) {
+        EntityManager entityManager = emf.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.merge(ghostnet);
+        transaction.commit();
+        entityManager.close();
+    }
 }

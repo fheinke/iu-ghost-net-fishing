@@ -16,4 +16,13 @@ public class PersonDAO {
         entityManager.close();
         return allPeople;
     }
+
+    public Person findById(int id) {
+        EntityManager entityManager = emf.createEntityManager();
+        Query query = entityManager.createQuery("SELECT p FROM Person p WHERE p.id = :id");
+        query.setParameter("id", id);
+        Person person = (Person) query.getSingleResult();
+        entityManager.close();
+        return person;
+    }
 }

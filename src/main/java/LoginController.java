@@ -63,10 +63,12 @@ public class LoginController implements Serializable {
             Person temp = new Person(this.name, this.surname, (String)value);
             if (p.equals(temp)) {
                 currentUser.setLoggedIn(true);
+                currentUser.setUser(p);
                 return;
             }
         }
         currentUser.setLoggedIn(false);
+        currentUser.setUser(null);
         throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login falsch!", null));
     }
 
@@ -76,6 +78,7 @@ public class LoginController implements Serializable {
 
     public String logout() {
         currentUser.setLoggedIn(false);
+        currentUser.setUser(null);
         return "index?faces-redirect=true";
     }
 }

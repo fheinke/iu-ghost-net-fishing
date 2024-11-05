@@ -18,8 +18,11 @@
     </h:form>
 
     <h:form>
-        <p:dataTable var="ghostnet" value="#{overview.ghostnetList}" allowUnsorting="true" sortMode="single">
+        <p:dataTable var="ghostnet" value="#{ghostnetController.ghostnetList}" allowUnsorting="true" sortMode="single" editable="true">
             <f:facet name="header"><h2>Gemeldete Geisternetze</h2></f:facet>
+
+            <p:ajax event="rowEdit" listener="#{ghostnetController.editEntryRowEvent}"/>
+            <p:ajax event="rowEditCancel" listener="#{ghostnetController.editEntryRowCancelEvent}"/>
 
             <p:column headerText="Standort (Längengrad, Breitengrad)" sortable="false">
                 <!-- TODO: Punkt statt Komma bei Koordinaten -->
@@ -36,16 +39,58 @@
                 <p:tooltip for="estimatedSize" value="Geschätzte Größe des Netzes in Quadratmetern" position="bottom"/>
             </p:column>
 
-            <p:column headerText="Status" sortBy="#{ghostnet.status}">
-                <p:outputLabel for="status" value="Status" style="padding: 8px;"/>
-                <h:outputText id="status" value="#{ghostnet.status}"/>
-                <p:tooltip for="status" value="Status des Netzes" position="bottom"/>
+            <p:column headerText="Status" sortBy="#{ghostnet.status}" rendered="#{!currentUser.loggedIn}">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText id="statusAnonymous" value="#{ghostnet.status}"/>
+                        <p:tooltip for="@previous" value="Status des Netzes" position="bottom"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:selectOneMenu label="Status des Netzes" value="#{ghostnet.status}" style="width:220px">
+                            <f:selectItem itemLabel="Gemeldet" itemValue="Gemeldet"/>
+                            <f:selectItem itemLabel="Verschollen" itemValue="Verschollen"/>
+                        </p:selectOneMenu>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column headerText="Status" sortBy="#{ghostnet.status}" rendered="#{currentUser.loggedIn}">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText id="status" value="#{ghostnet.status}"/>
+                        <p:tooltip for="@previous" value="Status des Netzes" position="bottom"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:selectOneMenu label="Status des Netzes" value="#{ghostnet.status}" style="width:220px">
+                            <f:selectItem itemLabel="Gemeldet" itemValue="Gemeldet"/>
+                            <f:selectItem itemLabel="Bergung bevorstehend" itemValue="Bergung bevorstehend"/>
+                            <f:selectItem itemLabel="Geborgen" itemValue="Geborgen"/>
+                            <f:selectItem itemLabel="Verschollen" itemValue="Verschollen"/>
+                        </p:selectOneMenu>
+                    </f:facet>
+                </p:cellEditor>
             </p:column>
 
             <p:column headerText="Gemeldet von" sortBy="#{ghostnet.reporterName}" rendered="#{currentUser.loggedIn}">
-                <p:outputLabel for="reporter" value="Status" style="padding: 8px;"/>
                 <h:outputText id="reporter" value="#{ghostnet.reporterName}"/>
                 <p:tooltip for="reporter" value="Netz wurde gemeldet von" position="bottom"/>
+            </p:column>
+
+            <p:column headerText="Bergende Person" sortBy="#{ghostnet.retrievingPerson.fullName}" rendered="#{currentUser.loggedIn}">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText id="retrieving" value="#{ghostnet.retrievingPerson.fullName}"/>
+                        <p:tooltip for="retrieving" value="Netz wird geborgen von" position="bottom"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:selectOneMenu label="Netz wird geborgen von" value="#{ghostnet.retrievingPerson}" converter="#{retrievingPersonConverter}" style="width:220px">
+                            <f:selectItems value="#{ghostnetController.getRetrievingPersonOptions(ghostnet, currentUser)}" var="option" itemLabel="#{option.label}" itemValue="#{option.value}"/>
+                        </p:selectOneMenu>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column style="width:6rem">
+                <p:rowEditor editTitle="Eintrag bearbeiten" cancelTitle="Bearbeiten abbrechen" saveTitle="Speichern"/>
             </p:column>
         </p:dataTable>
 
