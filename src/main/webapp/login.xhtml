@@ -24,7 +24,7 @@
                 </p:inputText>
                 <p:outputLabel value="Telefonnummer" for="phoneNumber"/>
                 <p:inputText id="phoneNumber" size="25" value="#{loginController.user.phoneNumber}" placeholder="+49 123 4567890" validator="#{loginController.validateLogin}" required="true">
-                    <f:validateRegex pattern="^([+]?[\d]+)?$"/>
+                    <f:validateRegex pattern="^([+]?[\d ]+)?$"/>
                 </p:inputText>
             </p:panelGrid>
 

@@ -17,7 +17,7 @@
             <p:outputLabel value="Ihr Name"/>
             <p:column>
                 <p:inputText id="username" placeholder="Maxi Muster" value="#{ghostnetController.newGhostnet.reporterName}" required="true"/>
-                <p:tooltip for="username" value="Ihre Telefonnummer bleibt privat, zum Melden wird nur Ihr Name benötigt." position="bottom"/>
+                <p:tooltip for="@previous" value="Ihre Telefonnummer bleibt privat, zum Melden wird nur Ihr Name benötigt." position="bottom"/>
             </p:column>
 
             <p:outputLabel value="GPS Koordinaten"/>
@@ -29,10 +29,10 @@
                 <p:tooltip for="lng" value="Breitengrade des gefundenen Netzes" position="bottom"/>
             </p:column>
 
-            <p:outputLabel value="Geschätzte Größe (qm)"/>
+            <p:outputLabel value="Geschätzter Durchmesser (m)"/>
             <p:column>
                 <p:spinner id="estimatedSize" value="#{ghostnetController.newGhostnet.estimatedSize}" required="true" stepFactor="0.25" min="0" size="5"/>
-                <p:tooltip for="estimatedSize" value="Geschätzte Größe des Netzes in Quadratmetern" position="bottom"/>
+                <p:tooltip for="@previous" value="Geschätzter Netzdurchmesser in Metern" position="bottom"/>
             </p:column>
         </h:panelGrid>
 

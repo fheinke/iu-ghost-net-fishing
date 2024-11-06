@@ -34,9 +34,9 @@
                 <p:tooltip for="lng" value="Breitengrade des gefundenen Netzes" position="bottom"/>
             </p:column>
 
-            <p:column headerText="Geschätzte Größe (qm)" sortBy="#{ghostnet.estimatedSize}">
-                <h:outputText id="estimatedSize" value="#{ghostnet.estimatedSize}"/>
-                <p:tooltip for="estimatedSize" value="Geschätzte Größe des Netzes in Quadratmetern" position="bottom"/>
+            <p:column headerText="Geschätzter Durchmesser" sortBy="#{ghostnet.estimatedSize}">
+                <h:outputText id="estimatedSize" value="#{ghostnet.estimatedSize} m"/>
+                <p:tooltip for="@previous" value="Geschätzter Netzdurchmesser in Metern" position="bottom"/>
             </p:column>
 
             <p:column headerText="Status" sortBy="#{ghostnet.status}" rendered="#{!currentUser.loggedIn}">

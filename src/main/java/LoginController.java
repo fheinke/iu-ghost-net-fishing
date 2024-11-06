@@ -59,8 +59,11 @@ public class LoginController implements Serializable {
 
     public void validateLogin(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         List<Person> users = personDAO.findAll();
+
+        String tempPhonenumber = value.toString().replaceAll(" ", "");
+        Person temp = new Person(this.name, this.surname, tempPhonenumber);
+
         for (Person p : users) {
-            Person temp = new Person(this.name, this.surname, (String)value);
             if (p.equals(temp)) {
                 currentUser.setLoggedIn(true);
                 currentUser.setUser(p);
