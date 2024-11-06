@@ -12,6 +12,14 @@ public class Overview implements Serializable {
         return "add";
     }
 
+    public String showDashboard() {
+        return "index";
+    }
+
+    public String showRetrievedGhostnets() {
+        return "retrieved";
+    }
+
     public String login() {
         return "login";
     }

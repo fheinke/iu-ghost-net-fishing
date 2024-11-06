@@ -12,8 +12,9 @@
     <h:form>
         <p:card>
             <p:commandButton value="Netz melden" icon="pi pi-file-plus" action="#{overview.addGhostnet}" style="margin-right: .5rem"/>
+            <p:commandButton value="Geborgene Netze" icon="pi pi-check" action="#{overview.showRetrievedGhostnets}" rendered="#{currentUser.loggedIn}" style="margin-right: .5rem"/>
             <p:commandButton value="Anmelden" icon="pi pi-user" action="#{overview.login}" rendered="#{!currentUser.loggedIn}"/>
-            <p:commandButton value="Abmelden" icon="pi pi-user" action="#{loginController.logout}" rendered="#{currentUser.loggedIn}"/>
+            <p:commandButton value="Abmelden" icon="pi pi-lock" action="#{loginController.logout}" rendered="#{currentUser.loggedIn}"/>
         </p:card>
     </h:form>
 

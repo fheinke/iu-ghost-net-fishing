@@ -41,6 +41,15 @@ public class GhostnetController implements Serializable {
     public List<Ghostnet> getGhostnetList() {
         return ghostnetList;
     }
+    public List<Ghostnet> getGhostnetListRetrieved() {
+        List<Ghostnet> ghostnetListRetrieved = new ArrayList<>();
+        for (Ghostnet ghostnet : ghostnetList) {
+            if (ghostnet.getStatus().equals("Geborgen")) {
+                ghostnetListRetrieved.add(ghostnet);
+            }
+        }
+        return ghostnetListRetrieved;
+    }
 
     // Additional Methods
     public String cancel() {
