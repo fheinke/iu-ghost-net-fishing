@@ -11,10 +11,10 @@
 <h:body>
     <h:form>
         <p:card>
+            <p:commandButton value="Anmelden" icon="pi pi-user" action="#{overview.login}" rendered="#{!currentUser.loggedIn}" style="margin-right: .5rem"/>
+            <p:commandButton value="Abmelden" icon="pi pi-lock" action="#{loginController.logout}" rendered="#{currentUser.loggedIn}" style="margin-right: .5rem"/>
             <p:commandButton value="Netz melden" icon="pi pi-file-plus" action="#{overview.addGhostnet}" style="margin-right: .5rem"/>
             <p:commandButton value="Netzübersicht" icon="pi pi-home" action="#{overview.showDashboard}" style="margin-right: .5rem"/>
-            <p:commandButton value="Anmelden" icon="pi pi-user" action="#{overview.login}" rendered="#{!currentUser.loggedIn}"/>
-            <p:commandButton value="Abmelden" icon="pi pi-lock" action="#{loginController.logout}" rendered="#{currentUser.loggedIn}"/>
         </p:card>
     </h:form>
 

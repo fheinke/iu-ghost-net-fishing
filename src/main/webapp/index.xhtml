@@ -6,20 +6,19 @@
 
 <h:head>
     <title>Übersicht - Shea Sepherd</title>
-    <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
 </h:head>
 
 <h:body>
     <h:form>
         <p:card>
-            <p:commandButton value="Netz melden" icon="pi pi-file-plus" action="#{overview.addGhostnet}" style="margin-right: .5rem"/>
-            <p:commandButton value="Netzkarte" icon="pi pi-map" id="ghostnetMap" style="margin-right: .5rem"/>
-            <p:commandButton value="Geborgene Netze" icon="pi pi-check" action="#{overview.showRetrievedGhostnets}" rendered="#{currentUser.loggedIn}" style="margin-right: .5rem"/>
             <p:commandButton value="Anmelden" icon="pi pi-user" action="#{overview.login}" rendered="#{!currentUser.loggedIn}" style="margin-right: .5rem"/>
             <p:commandButton value="Abmelden" icon="pi pi-lock" action="#{loginController.logout}" rendered="#{currentUser.loggedIn}" style="margin-right: .5rem"/>
+            <p:commandButton value="Netz melden" icon="pi pi-file-plus" action="#{overview.addGhostnet}" style="margin-right: .5rem"/>
+            <p:commandButton value="Geborgene Netze" icon="pi pi-check" action="#{overview.showRetrievedGhostnets}" rendered="#{currentUser.loggedIn}" style="margin-right: .5rem"/>
+            <p:commandButton value="Netzkarte" icon="pi pi-map" id="ghostnetMap" style="margin-right: .5rem"/>
         </p:card>
 
-        <p:overlayPanel for="ghostnetMap" dynamic="true" style="width: 80%; height: 80%">
+        <p:overlayPanel for="ghostnetMap" dynamic="true" style="width: 60%; height: 80%">
             <div class="card">
                 <p:gmap center="0.0,0.0" zoom="2" type="HYBRID" style="width: 100%; height: 100%"
                         model="#{ghostnetController.ghostnetMapMarkers}"/>
@@ -35,13 +34,16 @@
             <p:ajax event="rowEditCancel" listener="#{ghostnetController.editEntryRowCancelEvent}"/>
 
             <p:column headerText="Standort (Längengrad, Breitengrad)" sortable="false">
-                <!-- TODO: Punkt statt Komma bei Koordinaten -->
-                <p:outputLabel for="lat" value="Länge: " style="padding: 8px;"/>
-                <h:outputText id="lat" value="#{ghostnet.latitude}" size="10"/>
-                <p:tooltip for="lat" value="Längengerade des gefundenen Netzes" position="bottom"/>
-                <p:outputLabel for="lng" value="Breite: " style="padding: 8px;"/>
-                <h:outputText id="lng" value="#{ghostnet.longitude}" size="10"/>
-                <p:tooltip for="lng" value="Breitengrade des gefundenen Netzes" position="bottom"/>
+                <div class="md:col-4">
+                    <p:outputLabel for="lat" value="Länge: " style="padding: 8px;"/>
+                    <h:outputText id="lat" value="#{ghostnet.latitude}" size="10"/>
+                    <p:tooltip for="lat" value="Längengerade des gefundenen Netzes" position="bottom"/>
+                </div>
+                <div class="md:col-4">
+                    <p:outputLabel for="lng" value="Breite: " style="padding: 8px;"/>
+                    <h:outputText id="lng" value="#{ghostnet.longitude}" size="10"/>
+                    <p:tooltip for="lng" value="Breitengrade des gefundenen Netzes" position="bottom"/>
+                </div>
             </p:column>
 
             <p:column headerText="Geschätzter Durchmesser" sortBy="#{ghostnet.estimatedSize}">
@@ -122,7 +124,7 @@
         </p:confirmDialog>
     </h:form>
 
-    <!-- Used for GMap -->
+    <!-- Used for GMap - You have to insert your own API-Key -->
     <script src="https://maps.google.com/maps/api/js?key=AIzaSyCvCDkYieuUBmMWon_mfLAfjuaeuosuqow&amp;sensor=false"/>
 </h:body>
 </html>
