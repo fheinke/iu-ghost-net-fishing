@@ -16,31 +16,58 @@
         <h:panelGrid columns="2">
             <p:outputLabel value="Ihr Name"/>
             <p:column>
-                <p:inputText id="username" placeholder="Maxi Muster" value="#{ghostnetController.newGhostnet.reporterName}" required="true"/>
-                <p:tooltip for="@previous" value="Ihre Telefonnummer bleibt privat, zum Melden wird nur Ihr Name benötigt." position="bottom"/>
+                <div class="md:col-4">
+                    <p:inputText id="name" placeholder="Maxi Muster" value="#{ghostnetController.newGhostnet.reporterName}" required="true"/>
+                    <p:tooltip for="@previous" value="Ihre Telefonnummer bleibt privat, zum Melden wird nur Ihr Name benötigt." position="top"/>
+                </div>
             </p:column>
 
             <p:outputLabel value="GPS Koordinaten"/>
             <p:column>
-                <!-- TODO: Punkt statt Komma bei Koordinaten -->
-                <p:inputNumber id="lat" value="#{ghostnetController.newGhostnet.latitude}" required="true" placeholder="Längengrad" minValue="-90.0" maxValue="90.0" decimalPlaces="7" size="10"/>
-                <p:tooltip for="lat" value="Längengerade des gefundenen Netzes" position="bottom"/>
-                <p:inputNumber id="lng" value="#{ghostnetController.newGhostnet.longitude}" required="true" placeholder="Breitengrad" minValue="-180.0" maxValue="180.0" decimalPlaces="7" size="10"/>
-                <p:tooltip for="lng" value="Breitengrade des gefundenen Netzes" position="bottom"/>
+                <div class="md:col-4">
+                    <p:outputLabel value="Längengrad" for="@next"/>
+                    <p:inputNumber id="latitude"
+                                   value="#{ghostnetController.newGhostnet.latitude}"
+                                   required="true"
+                                   minValue="-90.0"
+                                   maxValue="90.0"
+                                   decimalSeparator="."
+                                   decimalPlaces="7"
+                                   thousandSeparator=""/>
+                </div>
+                <div class="md:col-4">
+                    <p:outputLabel value="Breitengrad" for="@next"/>
+                    <p:inputNumber id="longitude"
+                                   value="#{ghostnetController.newGhostnet.longitude}"
+                                   required="true"
+                                   minValue="-180.0"
+                                   maxValue="180.0"
+                                   maxlength="11"
+                                   decimalSeparator="."
+                                   decimalPlaces="7"
+                                   thousandSeparator=""/>
+                </div>
             </p:column>
 
             <p:outputLabel value="Geschätzter Durchmesser (m)"/>
             <p:column>
-                <p:spinner id="estimatedSize" value="#{ghostnetController.newGhostnet.estimatedSize}" required="true" stepFactor="0.25" min="0" size="5"/>
-                <p:tooltip for="@previous" value="Geschätzter Netzdurchmesser in Metern" position="bottom"/>
+                <div class="md:col-4">
+                    <p:spinner id="estimatedSize"
+                               value="#{ghostnetController.newGhostnet.estimatedSize}"
+                               required="true"
+                               stepFactor="0.25"
+                               min="0"
+                               style="width:220px"/>
+                    <p:tooltip for="@previous" value="Geschätzter Netzdurchmesser in Metern" position="bottom"/>
+                </div>
             </p:column>
         </h:panelGrid>
 
             <p:messages id="messages">
                 <p:autoUpdate/>
             </p:messages>
-            <p:commandButton value="Abbrechen" icon="pi pi-times" action="#{ghostnetController.cancel}" style="margin-top: .5rem; margin-right: .5rem" styleClass="ui-button-danger" immediate="true"/>
-            <p:commandButton value="Hinzufügen" icon="pi pi-check" action="#{ghostnetController.saveNewGhostnet}" style="margin-top: .5rem"/>
+            <p:commandButton value="Hinzufügen" icon="pi pi-check" action="#{ghostnetController.saveNewGhostnet}" style="margin-top: .5rem; margin-right: .5rem"/>
+            <p:commandButton value="Abbrechen" icon="pi pi-times" action="#{overview.cancel}" style="margin-top: .5rem" styleClass="ui-button-danger" immediate="true"/>
         </p:card>
     </h:form>
 </h:body>

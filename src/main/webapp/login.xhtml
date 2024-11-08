@@ -29,7 +29,8 @@
             </p:panelGrid>
 
             <f:facet name="footer">
-                <p:commandButton value="Login" action="#{loginController.login}" />
+                <p:commandButton value="Anmelden" icon="pi pi-lock-open" action="#{loginController.login}" style="margin-top: .5rem; margin-right: .5rem"/>
+                <p:commandButton value="Abbrechen" icon="pi pi-times" action="#{overview.cancel}" immediate="true" styleClass="ui-button-danger"/>
                 <p:messages id="messages">
                     <p:autoUpdate/>
                 </p:messages>

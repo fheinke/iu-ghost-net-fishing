@@ -10,9 +10,6 @@ public class Person {
     private String surname;
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "retrievingPerson")
-    private List<Ghostnet> retrievingGhostnets;
-
     // Constructor
     public Person() {
         super();
@@ -49,13 +46,6 @@ public class Person {
     }
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public List<Ghostnet> getRetrievingGhostnets() {
-        return retrievingGhostnets;
-    }
-    public void setRetrievingGhostnets(List<Ghostnet> retrievingGhostnets) {
-        this.retrievingGhostnets = retrievingGhostnets;
     }
 
     // Custom Methods

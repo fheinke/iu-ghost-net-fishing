@@ -8,6 +8,10 @@ import java.io.Serializable;
 public class Overview implements Serializable {
     public Overview() {}
 
+    public String cancel() {
+        return "index";
+    }
+
     public String addGhostnet() {
         return "add";
     }

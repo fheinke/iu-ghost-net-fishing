@@ -6,6 +6,10 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import org.primefaces.event.RowEditEvent;
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,6 +20,7 @@ import java.util.List;
 public class GhostnetController implements Serializable {
     private Ghostnet newGhostnet = new Ghostnet();
     private List<Ghostnet> ghostnetList;
+    private final MapModel<Long> ghostnetMapMarkers = new DefaultMapModel<>();
 
     @Inject
     private GhostnetDAO ghostnetDAO;
@@ -28,6 +33,10 @@ public class GhostnetController implements Serializable {
     @PostConstruct
     public void init() {
         ghostnetList = ghostnetDAO.findAll();
+
+        for (Ghostnet ghostnet : getGhostnetListNotRetrieved()) {
+            ghostnetMapMarkers.addOverlay(new Marker<>(new LatLng(ghostnet.getLatitude(), ghostnet.getLongitude())));
+        }
     }
 
     // Getter / Setter
@@ -38,8 +47,25 @@ public class GhostnetController implements Serializable {
         this.newGhostnet = newGhostnet;
     }
 
-    public List<Ghostnet> getGhostnetList() {
-        return ghostnetList;
+    public MapModel<Long> getGhostnetMapMarkers() {
+        return ghostnetMapMarkers;
+    }
+
+    // Additional Methods
+    public String saveNewGhostnet() {
+        newGhostnet.setStatus("Gemeldet");
+        ghostnetDAO.save(newGhostnet);
+        return "index";
+    }
+
+    public List<Ghostnet> getGhostnetListNotRetrieved() {
+        List<Ghostnet> ghostnetListNotRetrieved = new ArrayList<>();
+        for (Ghostnet ghostnet : ghostnetList) {
+            if (!ghostnet.getStatus().equals("Geborgen")) {
+                ghostnetListNotRetrieved.add(ghostnet);
+            }
+        }
+        return ghostnetListNotRetrieved;
     }
     public List<Ghostnet> getGhostnetListRetrieved() {
         List<Ghostnet> ghostnetListRetrieved = new ArrayList<>();
@@ -49,17 +75,6 @@ public class GhostnetController implements Serializable {
             }
         }
         return ghostnetListRetrieved;
-    }
-
-    // Additional Methods
-    public String cancel() {
-        return "index";
-    }
-
-    public String saveNewGhostnet() {
-        newGhostnet.setStatus("Gemeldet");
-        ghostnetDAO.save(newGhostnet);
-        return "index";
     }
 
     public List<SelectItem> getRetrievingPersonOptions(Ghostnet ghostnet, CurrentUser currentUser) {
@@ -90,5 +105,12 @@ public class GhostnetController implements Serializable {
     public void editEntryRowCancelEvent(RowEditEvent<Ghostnet> event) {
         FacesMessage msg = new FacesMessage("Bearbeitung abgebrochen", String.valueOf(event.getObject().getStatus()));
         FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void deleteGhostnet(Ghostnet ghostnet) {
+        ghostnetList.remove(ghostnet);
+        ghostnetDAO.delete(ghostnet);
+        FacesMessage message = new FacesMessage("Eintrag wurde gelöscht", null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 }

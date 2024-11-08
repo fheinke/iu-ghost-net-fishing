@@ -34,4 +34,14 @@ public class GhostnetDAO {
         transaction.commit();
         entityManager.close();
     }
+
+    public void delete(Ghostnet ghostnet) {
+        EntityManager entityManager = emf.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        Ghostnet managedGhostnet = entityManager.contains(ghostnet) ? ghostnet : entityManager.merge(ghostnet);
+        entityManager.remove(managedGhostnet);
+        transaction.commit();
+        entityManager.close();
+    }
 }

@@ -49,12 +49,12 @@ public class LoginController implements Serializable {
 
     // Custom Methods
     public void postValidateName(ComponentSystemEvent event) throws AbortProcessingException {
-        UIInput temp = (UIInput)event.getComponent();
-        this.name = (String)temp.getValue();
+        UIInput temp = (UIInput) event.getComponent();
+        this.name = (String) temp.getValue();
     }
     public void postValidateSurname(ComponentSystemEvent event) throws AbortProcessingException {
-        UIInput temp = (UIInput)event.getComponent();
-        this.surname = (String)temp.getValue();
+        UIInput temp = (UIInput) event.getComponent();
+        this.surname = (String) temp.getValue();
     }
 
     public void validateLogin(FacesContext context, UIComponent component, Object value) throws ValidatorException {

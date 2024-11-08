@@ -6,20 +6,29 @@
 
 <h:head>
     <title>Übersicht - Shea Sepherd</title>
+    <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
 </h:head>
 
 <h:body>
     <h:form>
         <p:card>
             <p:commandButton value="Netz melden" icon="pi pi-file-plus" action="#{overview.addGhostnet}" style="margin-right: .5rem"/>
+            <p:commandButton value="Netzkarte" icon="pi pi-map" id="ghostnetMap" style="margin-right: .5rem"/>
             <p:commandButton value="Geborgene Netze" icon="pi pi-check" action="#{overview.showRetrievedGhostnets}" rendered="#{currentUser.loggedIn}" style="margin-right: .5rem"/>
-            <p:commandButton value="Anmelden" icon="pi pi-user" action="#{overview.login}" rendered="#{!currentUser.loggedIn}"/>
-            <p:commandButton value="Abmelden" icon="pi pi-lock" action="#{loginController.logout}" rendered="#{currentUser.loggedIn}"/>
+            <p:commandButton value="Anmelden" icon="pi pi-user" action="#{overview.login}" rendered="#{!currentUser.loggedIn}" style="margin-right: .5rem"/>
+            <p:commandButton value="Abmelden" icon="pi pi-lock" action="#{loginController.logout}" rendered="#{currentUser.loggedIn}" style="margin-right: .5rem"/>
         </p:card>
+
+        <p:overlayPanel for="ghostnetMap" dynamic="true" style="width: 80%; height: 80%">
+            <div class="card">
+                <p:gmap center="0.0,0.0" zoom="2" type="HYBRID" style="width: 100%; height: 100%"
+                        model="#{ghostnetController.ghostnetMapMarkers}"/>
+            </div>
+        </p:overlayPanel>
     </h:form>
 
-    <h:form>
-        <p:dataTable var="ghostnet" value="#{ghostnetController.ghostnetList}" allowUnsorting="true" sortMode="single" editable="true">
+    <h:form id="ghostnetOverviewForm">
+        <p:dataTable id="ghostnetOverviewTable" var="ghostnet" value="#{ghostnetController.ghostnetListNotRetrieved}" allowUnsorting="true" sortMode="single" editable="true">
             <f:facet name="header"><h2>Gemeldete Geisternetze</h2></f:facet>
 
             <p:ajax event="rowEdit" listener="#{ghostnetController.editEntryRowEvent}"/>
@@ -90,14 +99,30 @@
                 </p:cellEditor>
             </p:column>
 
-            <p:column style="width:6rem">
+            <p:column style="width:5rem">
                 <p:rowEditor editTitle="Eintrag bearbeiten" cancelTitle="Bearbeiten abbrechen" saveTitle="Speichern"/>
+            </p:column>
+
+            <p:column style="width:1.5rem" rendered="#{currentUser.loggedIn}">
+                <p:commandButton icon="pi pi-trash" action="#{ghostnetController.deleteGhostnet(ghostnet)}" styleClass="rounded-button ui-button-danger ui-button-flat" update=":ghostnetOverviewForm:ghostnetOverviewTable" >
+                    <p:confirm type="popup" header="Bestätigung" message="Möchten Sie diesen Eintrag wirklich löschen?" icon="pi pi-info-circle"/>
+                </p:commandButton>
+                <p:tooltip for="@previous" value="Zeile löschen"/>
             </p:column>
         </p:dataTable>
 
         <p:messages id="messages">
             <p:autoUpdate/>
         </p:messages>
+
+        <!-- Confirmation Dialog Popup -->
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+        </p:confirmDialog>
     </h:form>
+
+    <!-- Used for GMap -->
+    <script src="https://maps.google.com/maps/api/js?key=AIzaSyCvCDkYieuUBmMWon_mfLAfjuaeuosuqow&amp;sensor=false"/>
 </h:body>
 </html>
