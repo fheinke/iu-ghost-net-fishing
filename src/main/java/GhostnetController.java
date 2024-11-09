@@ -24,8 +24,6 @@ public class GhostnetController implements Serializable {
 
     @Inject
     private GhostnetDAO ghostnetDAO;
-    @Inject
-    private CurrentUser currentUser;
 
     // Constructor
     public GhostnetController() {}
@@ -102,7 +100,7 @@ public class GhostnetController implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
-    public void editEntryRowCancelEvent(RowEditEvent<Ghostnet> event) {
+    public void editEntryRowCancelEvent() {
         FacesMessage msg = new FacesMessage("Bearbeitung abgebrochen", null);
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }

@@ -43,6 +43,8 @@ Die Konfiguration der `ghostnet` Datenbank kann dann mithilfe von [DBeaver](http
 
 Um sich an der Anwendung als **bergende Person** anmelden zu können, muss händisch in der Datenbank in der Tabelle `Person` ein neuer Eintrag erstellt werden.
 
+Um diese Anwendung im Produktivbetrieb verwenden zu können muss der Google Maps API Key durch einen eigenen ersetzt werden. Dieser befindet sich in der [`src/main/webapp/index.xhtml`](src/main/webapp/index.xhtml) Datei am Ende.
+
 
 ## Datenbank Aufbau
 Die Datenbank hat einen simplen Aufbau mit zwei Tabellen (und einer automatisch generierten Tabelle, die für die fortlaufende Nummerierung der Geistzernetze verantwortlich ist).
