@@ -40,6 +40,7 @@ Die Anbindung muss über die Datei [`src/main/resources/META-INF/persistence.xml
 
 Um einen schnellen Start zu ermöglichen, habe ich eine [Docker-Compose-Datei](compose.yaml) bereitgestellt, um eine MySQL Datenbank zu starten.
 Die Konfiguration der `ghostnet` Datenbank kann dann mithilfe von [DBeaver](https://dbeaver.io/download/) oder einem anderen Tool erledigt werden.
+Für einen noch einfacheren Einstieg habe ich einen [Datenbank Dump](misc/mysqldump_ghostnet.sql) erstellt, der einfach importiert werden kann.
 
 Um sich an der Anwendung als **bergende Person** anmelden zu können, muss händisch in der Datenbank in der Tabelle `Person` ein neuer Eintrag erstellt werden.
 
