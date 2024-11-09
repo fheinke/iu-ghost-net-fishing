@@ -15,7 +15,7 @@
             <p:commandButton value="Abmelden" icon="pi pi-lock" action="#{loginController.logout}" rendered="#{currentUser.loggedIn}" style="margin-right: .5rem"/>
             <p:commandButton value="Netz melden" icon="pi pi-file-plus" action="#{overview.addGhostnet}" style="margin-right: .5rem"/>
             <p:commandButton value="Geborgene Netze" icon="pi pi-check" action="#{overview.showRetrievedGhostnets}" rendered="#{currentUser.loggedIn}" style="margin-right: .5rem"/>
-            <p:commandButton value="Netzkarte" icon="pi pi-map" id="ghostnetMap" style="margin-right: .5rem"/>
+            <p:commandButton value="Netzkarte" icon="pi pi-map" id="ghostnetMap" rendered="#{currentUser.loggedIn}" style="margin-right: .5rem"/>
         </p:card>
 
         <p:overlayPanel for="ghostnetMap" dynamic="true" style="width: 60%; height: 80%">
@@ -27,13 +27,13 @@
     </h:form>
 
     <h:form id="ghostnetOverviewForm">
-        <p:dataTable id="ghostnetOverviewTable" var="ghostnet" value="#{ghostnetController.ghostnetListNotRetrieved}" allowUnsorting="true" sortMode="single" editable="true">
+        <p:dataTable id="ghostnetOverviewTable" var="ghostnet" value="#{ghostnetController.ghostnetListNotRetrieved}" editable="true">
             <f:facet name="header"><h2>Gemeldete Geisternetze</h2></f:facet>
 
             <p:ajax event="rowEdit" listener="#{ghostnetController.editEntryRowEvent}"/>
             <p:ajax event="rowEditCancel" listener="#{ghostnetController.editEntryRowCancelEvent}"/>
 
-            <p:column headerText="Standort (Längengrad, Breitengrad)" sortable="false">
+            <p:column headerText="Standort (Längengrad, Breitengrad)">
                 <div class="md:col-4">
                     <p:outputLabel for="lat" value="Länge: " style="padding: 8px;"/>
                     <h:outputText id="lat" value="#{ghostnet.latitude}" size="10"/>
@@ -46,12 +46,12 @@
                 </div>
             </p:column>
 
-            <p:column headerText="Geschätzter Durchmesser" sortBy="#{ghostnet.estimatedSize}">
+            <p:column headerText="Geschätzter Durchmesser">
                 <h:outputText id="estimatedSize" value="#{ghostnet.estimatedSize} m"/>
                 <p:tooltip for="@previous" value="Geschätzter Netzdurchmesser in Metern" position="bottom"/>
             </p:column>
 
-            <p:column headerText="Status" sortBy="#{ghostnet.status}" rendered="#{!currentUser.loggedIn}">
+            <p:column headerText="Status" rendered="#{!currentUser.loggedIn}">
                 <p:cellEditor>
                     <f:facet name="output">
                         <h:outputText id="statusAnonymous" value="#{ghostnet.status}"/>
@@ -65,7 +65,7 @@
                     </f:facet>
                 </p:cellEditor>
             </p:column>
-            <p:column headerText="Status" sortBy="#{ghostnet.status}" rendered="#{currentUser.loggedIn}">
+            <p:column headerText="Status" rendered="#{currentUser.loggedIn}">
                 <p:cellEditor>
                     <f:facet name="output">
                         <h:outputText id="status" value="#{ghostnet.status}"/>
@@ -82,12 +82,12 @@
                 </p:cellEditor>
             </p:column>
 
-            <p:column headerText="Gemeldet von" sortBy="#{ghostnet.reporterName}" rendered="#{currentUser.loggedIn}">
+            <p:column headerText="Gemeldet von" rendered="#{currentUser.loggedIn}">
                 <h:outputText id="reporter" value="#{ghostnet.reporterName}"/>
                 <p:tooltip for="reporter" value="Netz wurde gemeldet von" position="bottom"/>
             </p:column>
 
-            <p:column headerText="Bergende Person" sortBy="#{ghostnet.retrievingPerson.fullName}" rendered="#{currentUser.loggedIn}">
+            <p:column headerText="Bergende Person" rendered="#{currentUser.loggedIn}">
                 <p:cellEditor>
                     <f:facet name="output">
                         <h:outputText id="retrieving" value="#{ghostnet.retrievingPerson.fullName}"/>
@@ -113,7 +113,7 @@
             </p:column>
         </p:dataTable>
 
-        <p:messages id="messages">
+        <p:messages id="messages" closable="true">
             <p:autoUpdate/>
         </p:messages>
 

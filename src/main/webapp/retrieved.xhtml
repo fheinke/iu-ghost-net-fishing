@@ -19,35 +19,38 @@
     </h:form>
 
     <h:form rendered="#{currentUser.loggedIn}">
-        <p:dataTable var="ghostnet" value="#{ghostnetController.ghostnetListRetrieved}" allowUnsorting="true" sortMode="single">
+        <p:dataTable var="ghostnet" value="#{ghostnetController.ghostnetListRetrieved}">
             <f:facet name="header"><h2>Geborgene Geisternetze</h2></f:facet>
 
-            <p:column headerText="Standort (Längengrad, Breitengrad)" sortable="false">
-                <!-- TODO: Punkt statt Komma bei Koordinaten -->
-                <p:outputLabel for="lat" value="Länge: " style="padding: 8px;"/>
-                <h:outputText id="lat" value="#{ghostnet.latitude}" size="10"/>
-                <p:tooltip for="lat" value="Längengerade des gefundenen Netzes" position="bottom"/>
-                <p:outputLabel for="lng" value="Breite: " style="padding: 8px;"/>
-                <h:outputText id="lng" value="#{ghostnet.longitude}" size="10"/>
-                <p:tooltip for="lng" value="Breitengrade des gefundenen Netzes" position="bottom"/>
+            <p:column headerText="Standort (Längengrad, Breitengrad)">
+                <div class="md:col-4">
+                    <p:outputLabel for="lat" value="Länge: " style="padding: 8px;"/>
+                    <h:outputText id="lat" value="#{ghostnet.latitude}" size="10"/>
+                    <p:tooltip for="lat" value="Längengerade des gefundenen Netzes" position="bottom"/>
+                </div>
+                <div class="md:col-4">
+                    <p:outputLabel for="lng" value="Breite: " style="padding: 8px;"/>
+                    <h:outputText id="lng" value="#{ghostnet.longitude}" size="10"/>
+                    <p:tooltip for="lng" value="Breitengrade des gefundenen Netzes" position="bottom"/>
+                </div>
             </p:column>
 
-            <p:column headerText="Geschätzter Durchmesser" sortBy="#{ghostnet.estimatedSize}">
+            <p:column headerText="Geschätzter Durchmesser">
                 <h:outputText id="estimatedSize" value="#{ghostnet.estimatedSize} m"/>
                 <p:tooltip for="@previous" value="Geschätzter Netzdurchmesser in Metern" position="bottom"/>
             </p:column>
 
-            <p:column headerText="Status" sortable="false">
+            <p:column headerText="Status">
                 <h:outputText id="status" value="#{ghostnet.status}"/>
                 <p:tooltip for="@previous" value="Status des Netzes" position="bottom"/>
             </p:column>
 
-            <p:column headerText="Gemeldet von" sortBy="#{ghostnet.reporterName}">
+            <p:column headerText="Gemeldet von">
                 <h:outputText id="reporter" value="#{ghostnet.reporterName}"/>
                 <p:tooltip for="reporter" value="Netz wurde gemeldet von" position="bottom"/>
             </p:column>
 
-            <p:column headerText="Bergende Person" sortBy="#{ghostnet.retrievingPerson.fullName}">
+            <p:column headerText="Bergende Person">
                 <h:outputText id="retrieving" value="#{ghostnet.retrievingPerson.fullName}"/>
                 <p:tooltip for="retrieving" value="Netz wurde geborgen von" position="bottom"/>
             </p:column>

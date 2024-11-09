@@ -11,19 +11,19 @@
 <h:body>
     <h:form>
         <p:card style="width: 40em">
-            <f:facet name="title">Login oder Registrieren</f:facet>
+            <f:facet name="title">Anmelden</f:facet>
 
             <p:panelGrid columns="2">
-                <p:outputLabel value="Vorname" for="name"/>
-                <p:inputText id="name" size="25" value="#{loginController.user.name}" placeholder="Vorname" required="true">
+                <p:outputLabel value="Vorname" for="@next"/>
+                <p:inputText size="25" value="#{loginController.user.name}" placeholder="Vorname" required="true">
                     <f:event type="postValidate" listener="#{loginController.postValidateName}"/>
                 </p:inputText>
-                <p:outputLabel value="Nachname" for="surname"/>
-                <p:inputText id="surname" size="25" value="#{loginController.user.surname}" placeholder="Nachname" required="true">
+                <p:outputLabel value="Nachname" for="@next"/>
+                <p:inputText size="25" value="#{loginController.user.surname}" placeholder="Nachname" required="true">
                     <f:event type="postValidate" listener="#{loginController.postValidateSurname}"/>
                 </p:inputText>
-                <p:outputLabel value="Telefonnummer" for="phoneNumber"/>
-                <p:inputText id="phoneNumber" size="25" value="#{loginController.user.phoneNumber}" placeholder="+49 123 4567890" validator="#{loginController.validateLogin}" required="true">
+                <p:outputLabel value="Telefonnummer" for="@next"/>
+                <p:inputText size="25" value="#{loginController.user.phoneNumber}" placeholder="+49 123 4567890" validator="#{loginController.validateLogin}" required="true">
                     <f:validateRegex pattern="^([+]?[\d ]+)?$"/>
                 </p:inputText>
             </p:panelGrid>
@@ -31,6 +31,7 @@
             <f:facet name="footer">
                 <p:commandButton value="Anmelden" icon="pi pi-lock-open" action="#{loginController.login}" style="margin-top: .5rem; margin-right: .5rem"/>
                 <p:commandButton value="Abbrechen" icon="pi pi-times" action="#{overview.cancel}" immediate="true" styleClass="ui-button-danger"/>
+
                 <p:messages id="messages">
                     <p:autoUpdate/>
                 </p:messages>

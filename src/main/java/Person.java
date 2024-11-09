@@ -53,7 +53,7 @@ public class Person {
     public boolean equals(Object obj) {
         if (obj instanceof Person) {
             Person person = (Person) obj;
-            return person.getName().equals(this.name) && person.getSurname().equals(this.surname) && person.getPhoneNumber().equals(this.phoneNumber);
+            return person.getName().equals(this.name) && person.getSurname().equals(this.surname) && person.getPhoneNumber().equals(this.phoneNumber.replace(" ", ""));
         }
         return false;
     }

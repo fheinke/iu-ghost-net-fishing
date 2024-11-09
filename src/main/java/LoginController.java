@@ -33,20 +33,6 @@ public class LoginController implements Serializable {
         this.user = user;
     }
 
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
     // Custom Methods
     public void postValidateName(ComponentSystemEvent event) throws AbortProcessingException {
         UIInput temp = (UIInput) event.getComponent();
@@ -72,7 +58,7 @@ public class LoginController implements Serializable {
         }
         currentUser.setLoggedIn(false);
         currentUser.setUser(null);
-        throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login falsch!", null));
+        throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Anmeldedaten stimmen nicht überein.", null));
     }
 
     public String login() {

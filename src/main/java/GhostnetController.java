@@ -98,12 +98,12 @@ public class GhostnetController implements Serializable {
 
     public void editEntryRowEvent(RowEditEvent<Ghostnet> event) {
         ghostnetDAO.update(event.getObject());
-        FacesMessage msg = new FacesMessage("Bearbeitung abgeschlossen", String.valueOf(event.getObject().getStatus()));
+        FacesMessage msg = new FacesMessage("Bearbeitung abgeschlossen", null);
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void editEntryRowCancelEvent(RowEditEvent<Ghostnet> event) {
-        FacesMessage msg = new FacesMessage("Bearbeitung abgebrochen", String.valueOf(event.getObject().getStatus()));
+        FacesMessage msg = new FacesMessage("Bearbeitung abgebrochen", null);
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
