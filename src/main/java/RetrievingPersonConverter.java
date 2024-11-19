@@ -5,7 +5,6 @@ import jakarta.faces.convert.Converter;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-// TODO: This used to be an @FacesConverter, but because we need @Inject which does not work this way, it is a managed bean now
 @Named
 @ApplicationScoped
 public class RetrievingPersonConverter implements Converter {
